@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2299">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Is this a bird?&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/jspsych@7.3.0"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/@jspsych/plugin-html-button-response"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://unpkg.com/jspsych@7.3.0/css/jspsych.css" rel="stylesheet" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>img { max-height: 300px; margin: 20px 0; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.jspsych-btn { font-size: 20px; padding: 10px 20px; margin: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;body&gt;&lt;/body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const timeline = [];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const trials = [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>stimulus: '&lt;p&gt;Is this a bird?&lt;/p&gt;&lt;img src="eagle.jpg"&gt;',</p>
+<p class="p1"><span class="Apple-converted-space">        </span>data: { image: "eagle.jpg" }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>stimulus: '&lt;p&gt;Is this a bird?&lt;/p&gt;&lt;img src="kiwi.jpg"&gt;',</p>
+<p class="p1"><span class="Apple-converted-space">        </span>data: { image: "kiwi.jpg" }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>trials.forEach(trial =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>timeline.push({</p>
+<p class="p1"><span class="Apple-converted-space">        </span>type: jsPsychHtmlButtonResponse,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>stimulus: trial.stimulus,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>choices: ['Yes', 'No'],</p>
+<p class="p1"><span class="Apple-converted-space">        </span>data: trial.data,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>on_finish: function(data) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>data.reaction_time = data.rt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>data.answer = data.response === 0 ? "Yes" : "No";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>timeline.push({</p>
+<p class="p1"><span class="Apple-converted-space">      </span>type: jsPsychHtmlButtonResponse,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>stimulus: function() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const trials = jsPsych.data.get().values();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let summary = "&lt;h3&gt;Results:&lt;/h3&gt;&lt;ul&gt;";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>trials.forEach(t =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (t.image) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>summary += `&lt;li&gt;${t.image} – Answer: ${t.answer}, Reaction time: ${t.reaction_time} ms&lt;/li&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>summary += "&lt;/ul&gt;";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return summary;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>choices: ['Finish']</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>jsPsych.run(timeline);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
